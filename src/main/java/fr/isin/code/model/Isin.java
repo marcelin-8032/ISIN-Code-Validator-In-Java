@@ -9,15 +9,13 @@ import lombok.ToString;
 @ToString
 public class Isin {
 
-    long number;
+    String number;
     Country country;
-    long checkDigit;
+    String checkDigit;
 
-    public Isin(long number, Country country, long checkDigit) {
+    public Isin(String number, Country country, String checkDigit) {
         this.number = number;
         this.country = country;
         this.checkDigit = checkDigit;
     }
-
-
 }

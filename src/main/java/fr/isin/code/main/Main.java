@@ -6,6 +6,7 @@ import fr.isin.code.call.IsinCall;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -18,25 +19,28 @@ public class Main {
 
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);//number of Thread
 
-        List<Future<String>> futureList = new ArrayList<>();
+        List<Future<Boolean>> futureList = new ArrayList<>();
 
-        Random randomGenerator = new Random(System.currentTimeMillis());
+        Scanner inputIsin = new Scanner(System.in);
 
-        for (int i = 0; i < 3; i++) {//number of certificate update
-            int intNumbers = randomGenerator.nextInt(123456789);
-            String twoAlphbet = randomGenerator.ints(65, 90)
-                    .limit(2).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
-            String number = twoAlphbet + intNumbers;
-            System.out.println("Random number is : " + number);
+        System.out.println("Enter your ISIN Code here:");
 
-            IsinCall myCall = new IsinCall(number);
-            Future<String> result = executor.submit(myCall);
-            futureList.add(result);
-        }
+        String Isin ="";
+        Isin = inputIsin.nextLine();
 
-        for (Future<String> stringFuture : futureList) {
+        IsinCall myCall = new IsinCall(Isin);
+        Future<Boolean> result = executor.submit(myCall);
+        futureList.add(result);
+
+        String s1 = " is Valid";
+        String s2 = " is Not Valid";
+
+        for (Future<Boolean> sFuture : futureList) {
             try {
-                System.out.println("Certificate updates: " + stringFuture.get());
+                if (sFuture.get()) {
+                    System.out.println("Your ISIN code: " + Isin + s1);
+                } else
+                    System.out.println("Your ISIN code: " + Isin + s2);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

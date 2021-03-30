@@ -1,6 +1,12 @@
 package fr.isin.code.validator;
 
-public class IsinValidation implements IIsinValidation{
+import fr.isin.code.model.Country;
+
+import java.util.Arrays;
+
+import static fr.isin.code.model.Country.values;
+
+public class IsinValidation implements IIsinValidation {
 
     public String covertAnyLettersToNumber(String str) {
         String result = "";
@@ -45,19 +51,20 @@ public class IsinValidation implements IIsinValidation{
         return String.valueOf(sum);
     }
 
-    public String subtractTheSumNearGreaterRound(String number) {
-        long cl = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number))
-                + Long.parseLong(addingOfDigitsAtEvenPlace(number));
+    public boolean checkDigit(String number) {
+        long cl = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
 
         long sNear = 10 + (cl / 10) * 10;
-        long subst = 0;
 
         if (cl % 10 == 0) {
-            return String.valueOf(10);
+            return true;
         } else if (sNear >= cl) {
-            subst = sNear - cl;
+            long a = sNear - cl;
+            System.out.println("digit= " + a);
+            return true;
+        } else {
+            return false;
         }
-        return String.valueOf(subst);
     }
 
     public long getDigit(long number) {
@@ -65,6 +72,23 @@ public class IsinValidation implements IIsinValidation{
             return number;
         return number / 10 + number % 10;
 
+    }
+
+    public long getSizeISIN(String number) {
+        return number.length();
+    }
+
+
+    public boolean checkFirstTwoLetter(String number) throws Exception {
+        if (number.length() < 2) {
+            throw new Exception("Your Number is less than two character!");
+        }
+
+        return true;
+    }
+
+    public boolean isValidIsin(String number) throws Exception {
+        return true;
     }
 
 }

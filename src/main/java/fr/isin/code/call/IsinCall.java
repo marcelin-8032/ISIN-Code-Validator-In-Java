@@ -5,30 +5,21 @@ import fr.isin.code.validator.IsinValidation;
 
 import java.util.concurrent.Callable;
 
-public class IsinCall implements Callable<String> {
+public class IsinCall implements Callable<Boolean> {
 
-    private String isinValidationicateUpdate;
-
-
-    public IsinCall(String isinValidationicateUpdate) {
-        this.isinValidationicateUpdate = isinValidationicateUpdate;
-    }
+    private String isinNumber;
 
     private IIsinValidation isinValidation = new IsinValidation();
 
-    @Override
-    public String call() throws Exception {
-
-        return
-                isinValidation.covertAnyLettersToNumber(isinValidationicateUpdate) + "," +
-                        isinValidation.multiplicationOfOddDigitByTwoAndThenSum(isinValidationicateUpdate) + "," +
-                        isinValidation.addingOfDigitsAtEvenPlace(isinValidationicateUpdate) + "," +
-                        isinValidation.sumOfDigits(isinValidationicateUpdate) + "," +
-                        isinValidation.subtractTheSumNearGreaterRound(isinValidationicateUpdate);
+    public IsinCall(String isinNumber) {
+        this.isinNumber = isinNumber;
     }
 
+    @Override
+    public Boolean call() throws Exception {
+        if (isinValidation.isValidIsin(isinNumber))
+            return true;
+        return false;
+    }
 
 }
-
-
-
