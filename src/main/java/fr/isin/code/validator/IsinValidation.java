@@ -1,8 +1,8 @@
 package fr.isin.code.validator;
 
-public class IsinValidation {
+public class IsinValidation implements IIsinValidation{
 
-    public String covertAlphabetNumberToNumber(String str) {
+    public String covertAnyLettersToNumber(String str) {
         String result = "";
         char ch;
         for (int i = 0; i < str.length(); i++) {
@@ -19,10 +19,12 @@ public class IsinValidation {
         return result;
     }
 
-    public String multiplicationOfDigitsByTwoAtOddPlace(String number) {
+
+    public String multiplicationOfOddDigitByTwoAndThenSum(String number) {
         long sum = 0;
         for (int i = number.length() - 1; i >= 0; i -= 2) {
             sum += getDigit(Long.parseLong(Character.getNumericValue(number.charAt(i)) + "")) * 2;
+
         }
         return String.valueOf(sum);
 
@@ -39,18 +41,19 @@ public class IsinValidation {
 
 
     public String sumOfDigits(String number) {
-        long sum = Long.parseLong(multiplicationOfDigitsByTwoAtOddPlace(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
+        long sum = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
         return String.valueOf(sum);
     }
 
-
     public String subtractTheSumNearGreaterRound(String number) {
-        long cl = Long.parseLong(multiplicationOfDigitsByTwoAtOddPlace(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
+        long cl = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number))
+                + Long.parseLong(addingOfDigitsAtEvenPlace(number));
+
         long sNear = 10 + (cl / 10) * 10;
         long subst = 0;
 
         if (cl % 10 == 0) {
-            return String.valueOf(subst);
+            return String.valueOf(10);
         } else if (sNear >= cl) {
             subst = sNear - cl;
         }
@@ -63,6 +66,5 @@ public class IsinValidation {
         return number / 10 + number % 10;
 
     }
-
 
 }

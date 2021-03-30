@@ -18,23 +18,23 @@ class IsinValidationTest {
     @Test
     public void testconvertAnyLetterstoNumbers() {
         String num = "DE12";
-        assertEquals("131412", isin.covertAlphabetNumberToNumber(num));
+        assertEquals("131412", isin.covertAnyLettersToNumber(num));
         String num1 = "ABCDE";
-        assertEquals("1011121314", isin.covertAlphabetNumberToNumber(num1));
+        assertEquals("1011121314", isin.covertAnyLettersToNumber(num1));
     }
 
 
     @Test
     public void testFromRightmostDigitMultiPlyBy2AtOddplaceThenSumThem() {
-        assertEquals("8", isin.multiplicationOfDigitsByTwoAtOddPlace("123"));
-        assertEquals("12", isin.multiplicationOfDigitsByTwoAtOddPlace("1234"));
-        assertEquals("18", isin.multiplicationOfDigitsByTwoAtOddPlace("12345"));
-        assertEquals("24", isin.multiplicationOfDigitsByTwoAtOddPlace("123456"));
-        assertEquals("32", isin.multiplicationOfDigitsByTwoAtOddPlace("1234567"));
-        assertEquals("40", isin.multiplicationOfDigitsByTwoAtOddPlace("12345678"));
-        assertEquals("32", isin.multiplicationOfDigitsByTwoAtOddPlace("125698"));
-        assertEquals("50", isin.multiplicationOfDigitsByTwoAtOddPlace("123456789"));
-        assertEquals("54", isin.multiplicationOfDigitsByTwoAtOddPlace("1314123456789"));
+        assertEquals("8", isin.multiplicationOfOddDigitByTwoAndThenSum("123"));
+        assertEquals("12", isin.multiplicationOfOddDigitByTwoAndThenSum("1234"));
+        assertEquals("18", isin.multiplicationOfOddDigitByTwoAndThenSum("12345"));
+        assertEquals("24", isin.multiplicationOfOddDigitByTwoAndThenSum("123456"));
+        assertEquals("32", isin.multiplicationOfOddDigitByTwoAndThenSum("1234567"));
+        assertEquals("40", isin.multiplicationOfOddDigitByTwoAndThenSum("12345678"));
+        assertEquals("32", isin.multiplicationOfOddDigitByTwoAndThenSum("125698"));
+        assertEquals("50", isin.multiplicationOfOddDigitByTwoAndThenSum("123456789"));
+        assertEquals("54", isin.multiplicationOfOddDigitByTwoAndThenSum("1314123456789"));
     }
 
     @Test

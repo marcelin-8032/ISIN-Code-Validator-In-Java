@@ -1,5 +1,6 @@
 package fr.isin.code.validator;
 
+import fr.isin.code.call.IsinCall;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

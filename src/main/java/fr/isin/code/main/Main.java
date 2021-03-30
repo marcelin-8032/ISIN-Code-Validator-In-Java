@@ -1,4 +1,7 @@
-package fr.isin.code.validator;
+
+package fr.isin.code.main;
+
+import fr.isin.code.call.IsinCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
 
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);//number of Thread
 
@@ -43,6 +45,4 @@ public class Main {
         executor.shutdown();
     }
 }
-
-
 
