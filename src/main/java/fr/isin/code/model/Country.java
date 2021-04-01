@@ -3,11 +3,10 @@ package fr.isin.code.model;
 import lombok.Getter;
 import lombok.ToString;
 
-@Getter
 @ToString
 public enum Country {
     USA("US"), FRANCE("FR"), IRAN("IR"), GERMANY("DE"), UNITED_KINGDOM("GB"),
-    ITALY("IT"), RUSSIA("RU");
+    ITALY("IT"), RUSSIA("RU"), SWITZERLAND("CH");
 
     private String code;
 
@@ -15,5 +14,7 @@ public enum Country {
         this.code = code;
     }
 
-
+    public String getCode() {
+        return code;
+    }
 }

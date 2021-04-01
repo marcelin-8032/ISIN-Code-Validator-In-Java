@@ -8,15 +8,15 @@ public interface IIsinValidation {
 
     String covertAnyLettersToNumber(String str);
 
-    String multiplicationOfOddDigitByTwoAndThenSum(String number);
+    long multiplicationOfOddDigitByTwoAndThenSum(String number);
 
-    String addingOfDigitsAtEvenPlace(String number);
+    long addingOfDigitsAtEvenPlace(String number);
 
-    String sumOfDigits(String number);
+    long sumOfDigits(String number);
 
-    boolean checkDigit(String number);
+    long checkDigit(String number);
 
-    long getDigit(long number);
+    long sumToSingleDigit(long number);
 
     boolean checkFirstTwoLetter(String number) throws Exception;
 

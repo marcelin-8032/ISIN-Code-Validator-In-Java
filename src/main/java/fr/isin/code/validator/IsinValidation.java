@@ -4,9 +4,9 @@ import fr.isin.code.model.Country;
 
 import java.util.Arrays;
 
-import static fr.isin.code.model.Country.values;
 
 public class IsinValidation implements IIsinValidation {
+
 
     public String covertAnyLettersToNumber(String str) {
         String result = "";
@@ -26,48 +26,47 @@ public class IsinValidation implements IIsinValidation {
     }
 
 
-    public String multiplicationOfOddDigitByTwoAndThenSum(String number) {
-        long sum = 0;
+    public long multiplicationOfOddDigitByTwoAndThenSum(String number) {
+        long sumOdd = 0;
         for (int i = number.length() - 1; i >= 0; i -= 2) {
-            sum += getDigit(Long.parseLong(Character.getNumericValue(number.charAt(i)) + "")) * 2;
+            sumOdd += sumToSingleDigit(Long.parseLong(Character.getNumericValue(number.charAt(i)) + "")) * 2;
 
         }
-        return String.valueOf(sum);
+        return sumOdd;
 
     }
 
-    public String addingOfDigitsAtEvenPlace(String number) {
-        long sum = 0;
+    public long addingOfDigitsAtEvenPlace(String number) {
+        long sumEven = 0;
         for (int i = number.length() - 2; i >= 0; i -= 2) {
-            sum += getDigit(Long.parseLong(Character.getNumericValue(number.charAt(i)) + ""));
+            sumEven += sumToSingleDigit(Long.parseLong(Character.getNumericValue(number.charAt(i)) + ""));
         }
-        return String.valueOf(sum);
+        return sumEven;
 
     }
 
 
-    public String sumOfDigits(String number) {
-        long sum = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
-        return String.valueOf(sum);
+    public long sumOfDigits(String number) {
+        long sumAll = multiplicationOfOddDigitByTwoAndThenSum(number) + addingOfDigitsAtEvenPlace(number);
+        return sumAll;
     }
 
-    public boolean checkDigit(String number) {
-        long cl = Long.parseLong(multiplicationOfOddDigitByTwoAndThenSum(number)) + Long.parseLong(addingOfDigitsAtEvenPlace(number));
-
+    public long checkDigit(String number) {
+        long cl = sumOfDigits(number);
         long sNear = 10 + (cl / 10) * 10;
-
+        long digit;
         if (cl % 10 == 0) {
-            return true;
+            return 10;
         } else if (sNear >= cl) {
-            long a = sNear - cl;
-            System.out.println("digit= " + a);
-            return true;
+
+            digit = sNear - cl;
+            return digit;
         } else {
-            return false;
+            return 0;
         }
     }
 
-    public long getDigit(long number) {
+    public long sumToSingleDigit(long number) {
         if (number < 9)
             return number;
         return number / 10 + number % 10;
@@ -78,17 +77,25 @@ public class IsinValidation implements IIsinValidation {
         return number.length();
     }
 
-
     public boolean checkFirstTwoLetter(String number) throws Exception {
         if (number.length() < 2) {
             throw new Exception("Your Number is less than two character!");
         }
-
-        return true;
+        return Arrays.stream(Country.values())
+                .map(Country::getCode).anyMatch(number::contains);
     }
 
     public boolean isValidIsin(String number) throws Exception {
-        return true;
+        return (getSizeISIN(number) == 12) && checkFirstTwoLetter(number) && (covertAnyLettersToNumber(number).length() == 14)
+                && (10 - (sumOfDigits(covertAnyLettersToNumber(number)) % 10) == checkDigit(covertAnyLettersToNumber(number)));
+
     }
+
+
+    public static void main(String[] args) throws Exception {
+        IsinValidation isinValidation = new IsinValidation();
+        System.out.println(isinValidation.isValidIsin("US9311421039"));
+    }
+
 
 }

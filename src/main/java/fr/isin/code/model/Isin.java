@@ -13,6 +13,9 @@ public class Isin {
     Country country;
     String checkDigit;
 
+    public Isin() {
+    }
+
     public Isin(String number, Country country, String checkDigit) {
         this.number = number;
         this.country = country;

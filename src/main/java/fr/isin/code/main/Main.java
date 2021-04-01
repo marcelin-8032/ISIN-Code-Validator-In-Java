@@ -25,10 +25,10 @@ public class Main {
 
         System.out.println("Enter your ISIN Code here:");
 
-        String Isin ="";
-        Isin = inputIsin.nextLine();
+        String isin ="";
+        isin = inputIsin.nextLine();
 
-        IsinCall myCall = new IsinCall(Isin);
+        IsinCall myCall = new IsinCall(isin);
         Future<Boolean> result = executor.submit(myCall);
         futureList.add(result);
 
@@ -38,9 +38,9 @@ public class Main {
         for (Future<Boolean> sFuture : futureList) {
             try {
                 if (sFuture.get()) {
-                    System.out.println("Your ISIN code: " + Isin + s1);
+                    System.out.println("Your ISIN code: " + isin + s1);
                 } else
-                    System.out.println("Your ISIN code: " + Isin + s2);
+                    System.out.println("Your ISIN code: " + isin + s2);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

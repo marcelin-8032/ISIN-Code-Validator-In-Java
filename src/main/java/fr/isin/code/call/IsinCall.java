@@ -1,5 +1,6 @@
 package fr.isin.code.call;
 
+import fr.isin.code.model.Isin;
 import fr.isin.code.validator.IIsinValidation;
 import fr.isin.code.validator.IsinValidation;
 
@@ -9,7 +10,7 @@ public class IsinCall implements Callable<Boolean> {
 
     private String isinNumber;
 
-    private IIsinValidation isinValidation = new IsinValidation();
+    private final IsinValidation isinValidation = new IsinValidation();
 
     public IsinCall(String isinNumber) {
         this.isinNumber = isinNumber;
