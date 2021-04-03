@@ -3,6 +3,10 @@ package fr.isin.code.main;
 
 import fr.isin.code.call.IsinCall;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,37 +19,29 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);//number of Thread
 
-        List<Future<Boolean>> futureList = new ArrayList<>();
-
-        Scanner inputIsin = new Scanner(System.in);
+        List<Future<String>> futureList = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Enter your ISIN Code here:");
 
-        String isin ="";
-        isin = inputIsin.nextLine();
+        String isin = reader.readLine();
+        reader.close();
 
         IsinCall myCall = new IsinCall(isin);
-        Future<Boolean> result = executor.submit(myCall);
+        Future<String> result = executor.submit(myCall);
         futureList.add(result);
 
-        String s1 = " is Valid";
-        String s2 = " is Not Valid";
-
-        for (Future<Boolean> sFuture : futureList) {
+        for (Future<String> sFuture : futureList) {
             try {
-                if (sFuture.get()) {
-                    System.out.println("Your ISIN code: " + isin + s1);
-                } else
-                    System.out.println("Your ISIN code: " + isin + s2);
+                System.out.println(isin + " : " + sFuture.get());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
-
         executor.shutdown();
     }
 }

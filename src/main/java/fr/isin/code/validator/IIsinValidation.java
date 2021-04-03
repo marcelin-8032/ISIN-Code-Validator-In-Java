@@ -1,12 +1,11 @@
 package fr.isin.code.validator;
 
-import fr.isin.code.model.Country;
-
-import java.util.Arrays;
 
 public interface IIsinValidation {
 
-    String covertAnyLettersToNumber(String str);
+    boolean isValidIsin(String number) throws Exception;
+
+    long covertAnyLettersToNumber(String str);
 
     long multiplicationOfOddDigitByTwoAndThenSum(String number);
 
@@ -14,13 +13,12 @@ public interface IIsinValidation {
 
     long sumOfDigits(String number);
 
-    long checkDigit(String number);
+    boolean checkDigit(String number);
 
     long sumToSingleDigit(long number);
 
-    boolean checkFirstTwoLetter(String number) throws Exception;
 
-    boolean isValidIsin(String number) throws Exception;
+
 
 
 }

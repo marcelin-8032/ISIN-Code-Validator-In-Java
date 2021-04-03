@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsinValidationTest {
 
-
     private IsinValidation isin;
 
     @BeforeEach
@@ -18,21 +17,6 @@ class IsinValidationTest {
         isin = new IsinValidation();
     }
 
-
-    @Test
-    public void testGetSizeNumber() {
-        assertEquals(12, isin.getSizeISIN("US9311421039"));
-        assertEquals(12, isin.getSizeISIN("FR0000133308"));
-        assertEquals(12, isin.getSizeISIN("US5949181048"));
-    }
-
-
-    @Test
-    public void testIfNumberHasTwoCountryCode() throws Exception {
-        assertEquals(true, isin.checkFirstTwoLetter("US9311421039"));
-        assertEquals(false, isin.checkFirstTwoLetter("FX0000120271"));
-        assertEquals(true, isin.checkFirstTwoLetter("CH0038863350"));
-    }
 
 
     @Test
@@ -46,7 +30,6 @@ class IsinValidationTest {
 
     @Test
     public void testFromRightmostDigitMultiPlyBy2AtOddplaceThenSumThem() {
-        assertEquals("18", isin.multiplicationOfOddDigitByTwoAndThenSum(isin.covertAnyLettersToNumber("US123")));
         assertEquals("8", isin.multiplicationOfOddDigitByTwoAndThenSum("123"));
         assertEquals("12", isin.multiplicationOfOddDigitByTwoAndThenSum("1234"));
         assertEquals("18", isin.multiplicationOfOddDigitByTwoAndThenSum("12345"));
@@ -96,10 +79,5 @@ class IsinValidationTest {
         assertEquals(10, isin.sumToSingleDigit(19));
     }
 
-    @Test
-    public void testIsValid() throws Exception {
-        assertEquals(true,isin.isValidIsin("FR0000133308"));
-        assertEquals(true,isin.isValidIsin("FR0000133309"));
-    }
 
 }

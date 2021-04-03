@@ -6,21 +6,30 @@ import fr.isin.code.validator.IsinValidation;
 
 import java.util.concurrent.Callable;
 
-public class IsinCall implements Callable<Boolean> {
+public class IsinCall implements Callable<String> {
 
     private String isinNumber;
-
-    private final IsinValidation isinValidation = new IsinValidation();
 
     public IsinCall(String isinNumber) {
         this.isinNumber = isinNumber;
     }
 
     @Override
-    public Boolean call() throws Exception {
-        if (isinValidation.isValidIsin(isinNumber))
-            return true;
-        return false;
+    public String call() throws Exception {
+        IsinValidation isinValidation = new IsinValidation();
+
+        boolean isValidNumber = isinValidation.isValidIsin(isinNumber);
+
+        boolean isDigitValid = isinValidation.checkDigit(isinNumber);
+
+        String validation = "";
+
+        if (isValidNumber && isDigitValid) {
+            validation = "is Valid";
+        } else {
+            validation = "is Not Valid";
+        }
+        return validation;
     }
 
 }
